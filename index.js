@@ -422,35 +422,3 @@ app.delete("/delete/:id", async function(req, res) {
 app.listen(port, function() {
     console.log(`App is Running in ${port}`);
 })
-
-
-
-///feed search
-// app.post("/fs", [authenticates], async function(req, res) {
-//     try {
-//         let client = await mongoclient.connect(url);
-//         let db = client.db("booking");
-//         let user = await db.collection("admin").find({
-//             number: req.body.feed
-//         }).toArray();
-//         if (user) {
-//             console.log(user);
-//             let deletes = await db.collection("note2").deleteMany({});
-//             let post = await db.collection("note2").insertMany(user);
-//             let get = await db.collection("note2").find().toArray();
-//         } else {
-//             console.log("error-1")
-//         }
-//         await client.close();
-//     } catch (error) {}
-// })
-
-// app.get("/fss", [authenticates], async function(req, res) {
-//     try {
-//         let client = await mongoclient.connect(url);
-//         let db = client.db("booking");
-//         let get = await db.collection("note2").find({}).toArray();
-//         await client.close();
-//         res.json(get);
-//     } catch (error) {}
-// })
