@@ -333,6 +333,7 @@ async function tom() {
         let today = new Date();
         let tomorrow = new Date(today)
         let final = tomorrow.setDate(tomorrow.getDate() + 1);
+        console.log(final)
         let date = ("0" + tomorrow.getDate()).slice(-2);
         let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
         let year = tomorrow.getFullYear();
