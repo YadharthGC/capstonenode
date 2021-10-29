@@ -4,7 +4,8 @@ const cors = require("cors")
 const port = process.env.PORT || 3003
 const mongodb = require("mongodb")
 const mongoclient = mongodb.MongoClient;
-const url = 'mongodb://localhost:27017';
+// const url = 'mongodb://localhost:27017';
+const url = "mongodb+srv://ganesh:chitra@cluster0.2pjhw.mongodb.net/booking?retryWrites=true&w=majority"
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const {
