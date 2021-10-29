@@ -4,13 +4,15 @@ const cors = require("cors")
 const port = process.env.PORT || 3003
 const mongodb = require("mongodb")
 const mongoclient = mongodb.MongoClient;
-const url = 'mongodb://localhost:27017';
-// const url = "mongodb+srv://ganesh:chitra@cluster0.2pjhw.mongodb.net/booking?retryWrites=true&w=majority"
+// const url = 'mongodb://localhost:27017';
+const url = "mongodb+srv://ganesh:chitra@cluster0.2pjhw.mongodb.net/booking?retryWrites=true&w=majority"
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const {
     ObjectID
 } = require("bson")
+const date = require('date-and-time');
+const now = new Date();
 app.use(cors({
     origin: "*"
 }))
@@ -330,17 +332,22 @@ async function tom() {
     try {
         let client = await mongoclient.connect(url)
         let db = client.db("booking");
-        let today = new Date();
-        let tomorrow = new Date(today)
-        let final = tomorrow.setDate(tomorrow.getDate() + 1);
-        console.log(final)
-        let date = ("0" + tomorrow.getDate()).slice(-2);
-        let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
-        let year = tomorrow.getFullYear();
-        let td = (year + "-" + month + "-" + date);
-        console.log(td)
+        // console.log(now)
+        // let tomorrow = new Date(now)
+        // tomorrow.setDate(tomorrow.getDate() + 1);
+        // console.log(tomorrow)
+        // let date = ("0" + tomorrow.getDate()).slice(-2);
+        // let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
+        // let year = tomorrow.getFullYear();
+        // let td = (year + "-" + month + "-" + date);
+        // console.log(td)
+        // let addd=tomorrow.format()
+        let tomorrow = new Date(now)
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        let m = date.format(tomorrow, 'YYYY-MM-DD')
+        console.log(m)
         let tmrwbkg = await db.collection("users").find({
-            date: td
+            date: m
         }).toArray();
         console.log(tmrwbkg)
         let deletedata = await db.collection("tomorrow").deleteMany({});
