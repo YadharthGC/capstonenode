@@ -330,14 +330,17 @@ async function tom() {
     try {
         let client = await mongoclient.connect(url)
         let db = client.db("booking");
-        let today = new Date();
-        let tomorrow = new Date(today)
-        let final = tomorrow.setDate(tomorrow.getDate() + 1);
-        console.log(final)
-        let date = ("0" + tomorrow.getDate()).slice(-2);
-        let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
-        let year = tomorrow.getFullYear();
-        let td = (year + "-" + month + "-" + date);
+        // let today = new Date();
+        // let tomorrow = new Date(today)
+        // let final = tomorrow.setDate(tomorrow.getDate() + 1);
+        // console.log(final)
+        // let date = ("0" + tomorrow.getDate()).slice(-2);
+        // let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
+        // let year = tomorrow.getFullYear();
+        // let td = (year + "-" + month + "-" + date);
+        // console.log(td)
+        new Date()
+        let td = new Date(+new Date().setHours(0, 0, 0, 0) + 86400000).toLocaleDateString('fr-CA');
         console.log(td)
         let tmrwbkg = await db.collection("users").find({
             date: td
