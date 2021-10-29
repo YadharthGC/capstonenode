@@ -329,15 +329,10 @@ app.get("/tmrw", [authenticates], async function(req, res) {
     try {
         let client = await mongoclient.connect(url);
         let db = client.db("booking");
-        // let dates = new Date();
-        // let date = ("0" + dates.getDate()).slice(-2);
-        // let month = ("0" + (dates.getMonth() + 1)).slice(-2);
-        // let year = dates.getFullYear();
-        // let td = (year + "-" + month + "-" + date);
-        // console.log(td)
         let today = new Date();
         let tomorrow = new Date(today)
         let final = tomorrow.setDate(tomorrow.getDate() + 1);
+        console.log(final)
         let date = ("0" + tomorrow.getDate()).slice(-2);
         let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
         let year = tomorrow.getFullYear();
