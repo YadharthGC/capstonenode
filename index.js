@@ -4,8 +4,8 @@ const cors = require("cors")
 const port = process.env.PORT || 3003
 const mongodb = require("mongodb")
 const mongoclient = mongodb.MongoClient;
-// const url = 'mongodb://localhost:27017';
-const url = "mongodb+srv://ganesh:chitra@cluster0.2pjhw.mongodb.net/booking?retryWrites=true&w=majority"
+const url = 'mongodb://localhost:27017';
+// const url = "mongodb+srv://ganesh:chitra@cluster0.2pjhw.mongodb.net/booking?retryWrites=true&w=majority"
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const {
@@ -325,21 +325,34 @@ app.put("/adminedit/:id", [authenticates], async function(req, res) {
 })
 
 //tmrwbookings
-app.get("/tmrw", [authenticates], async function(req, res) {
+//step 1
+async function tom() {
     try {
-        let client = await mongoclient.connect(url);
+        let client = await mongoclient.connect(url)
         let db = client.db("booking");
         let today = new Date();
         let tomorrow = new Date(today)
         let final = tomorrow.setDate(tomorrow.getDate() + 1);
-        console.log(final)
         let date = ("0" + tomorrow.getDate()).slice(-2);
         let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
         let year = tomorrow.getFullYear();
         let td = (year + "-" + month + "-" + date);
-        let get = await db.collection("users").find({
+        console.log(td)
+        let tmrwbkg = await db.collection("users").find({
             date: td
         }).toArray();
+        console.log(tmrwbkg)
+        let deletedata = await db.collection("tomorrow").deleteMany({});
+        let post = await db.collection("tomorrow").insertMany(tmrwbkg)
+    } catch (error) {}
+}
+tom();
+//step 2
+app.get("/tmrw", [authenticates], async function(req, res) {
+    try {
+        let client = await mongoclient.connect(url);
+        let db = client.db("booking");
+        let get = await db.collection("tomorrow").find({}).toArray();
         res.json(get);
         console.log(get);
         await client.close()
