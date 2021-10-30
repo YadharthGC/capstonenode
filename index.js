@@ -327,39 +327,6 @@ app.put("/adminedit/:id", [authenticates], async function(req, res) {
 })
 
 //tmrwbookings
-//step 1
-// async function tom() {
-//     try {
-//         let client = await mongoclient.connect(url)
-//         let db = client.db("booking");
-//         // console.log(now)
-//         // let tomorrow = new Date(now)
-//         // tomorrow.setDate(tomorrow.getDate() + 1);
-//         // console.log(tomorrow)
-//         // let date = ("0" + tomorrow.getDate()).slice(-2);
-//         // let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
-//         // let year = tomorrow.getFullYear();
-//         // let td = (year + "-" + month + "-" + date);
-//         // console.log(td)
-//         // let addd=tomorrow.format()
-//         let tomorrow = new Date(now)
-//         tomorrow.setDate(tomorrow.getDate() + 1);
-//         console.log(tomorrow)
-//         let date = ("0" + tomorrow.getDate()).slice(-2);
-//         let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
-//         let year = tomorrow.getFullYear();
-//         let td = (year + "-" + month + "-" + date);
-//         console.log(td)
-//         let tmrwbkg = await db.collection("users").find({
-//             date: td
-//         }).toArray();
-//         console.log(tmrwbkg)
-//         let deletedata = await db.collection("tomorrow").deleteMany({});
-//         let post = await db.collection("tomorrow").insertMany(tmrwbkg)
-//     } catch (error) {}
-// }
-// tom();
-//step 2
 app.get("/tmrw", [authenticates], async function(req, res) {
     try {
         let client = await mongoclient.connect(url);
