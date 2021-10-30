@@ -344,10 +344,14 @@ async function tom() {
         // let addd=tomorrow.format()
         let tomorrow = new Date(now)
         tomorrow.setDate(tomorrow.getDate() + 1);
-        let m = date.format(tomorrow, 'YYYY-MM-DD')
-        console.log(m)
+        console.log(tomorrow)
+        let date = ("0" + tomorrow.getDate()).slice(-2);
+        let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
+        let year = tomorrow.getFullYear();
+        let td = (year + "-" + month + "-" + date);
+        console.log(td)
         let tmrwbkg = await db.collection("users").find({
-            date: m
+            date: td
         }).toArray();
         console.log(tmrwbkg)
         let deletedata = await db.collection("tomorrow").deleteMany({});
