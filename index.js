@@ -12,7 +12,7 @@ const {
     ObjectID
 } = require("bson")
 const date = require('date-and-time');
-var now = new Date();
+const now = new Date();
 app.use(cors({
     origin: "*"
 }))
@@ -261,36 +261,20 @@ app.post("/adminlogin", async function(req, res) {
 })
 
 //today booking
-//step1
-async function trialsa() {
+app.get("/tb", [authenticates], async function(req, res) {
     try {
-        let client = await mongoclient.connect(url)
-        let db = client.db("booking")
+        let client = await mongoclient.connect(url);
+        let db = client.db("booking");
         let dates = new Date();
         let date = ("0" + dates.getDate()).slice(-2);
         let month = ("0" + (dates.getMonth() + 1)).slice(-2);
         let year = dates.getFullYear();
         let td = (year + "-" + month + "-" + date);
-        console.log("today")
         console.log(dates)
         console.log(td)
-        let deletedata = await db.collection("today").deleteMany({});
         let get = await db.collection("users").find({
             date: td
         }).toArray();
-        console.log(get)
-        let post = await db.collection("today").insertMany(get);
-        await client.close()
-    } catch (error) {}
-}
-trialsa();
-//step2
-app.get("/tb", [authenticates], async function(req, res) {
-    try {
-        let client = await mongoclient.connect(url);
-        let db = client.db("booking");
-        console.log("step 2 today")
-        let get = await db.collection("today").find({}).toArray();
         res.json(get);
         console.log(get);
         await client.close()
@@ -343,11 +327,11 @@ app.put("/adminedit/:id", [authenticates], async function(req, res) {
 })
 
 //tmrwbookings
-//step1
-async function trialsab() {
+app.get("/tmrw", [authenticates], async function(req, res) {
     try {
-        let client = await mongoclient.connect(url)
-        let db = client.db("booking")
+        console.log("tomorrow")
+        let client = await mongoclient.connect(url);
+        let db = client.db("booking");
         let tomorrow = new Date(now)
         tomorrow.setDate(tomorrow.getDate() + 1);
         console.log(tomorrow)
@@ -355,25 +339,10 @@ async function trialsab() {
         let month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
         let year = tomorrow.getFullYear();
         let td = (year + "-" + month + "-" + date);
-        console.log("tommorrow")
         console.log(td)
-        let deletedata = await db.collection("tomorrow").deleteMany({});
         let get = await db.collection("users").find({
             date: td
         }).toArray();
-        console.log(get)
-        let post = await db.collection("tomorrow").insertMany(get);
-        await client.close()
-    } catch (error) {}
-}
-trialsab();
-//step2
-app.get("/tb", [authenticates], async function(req, res) {
-    try {
-        let client = await mongoclient.connect(url);
-        let db = client.db("booking");
-        console.log("step 2 tomorrow")
-        let get = await db.collection("tomorrow").find({}).toArray();
         res.json(get);
         console.log(get);
         await client.close()
