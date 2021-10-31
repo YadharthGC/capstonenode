@@ -329,6 +329,7 @@ app.put("/adminedit/:id", [authenticates], async function(req, res) {
 //tmrwbookings
 app.get("/tmrw", [authenticates], async function(req, res) {
     try {
+        console.log("tomorrow")
         let client = await mongoclient.connect(url);
         let db = client.db("booking");
         let tomorrow = new Date(now)
