@@ -263,6 +263,7 @@ app.post("/adminlogin", async function(req, res) {
 //today booking
 app.get("/tb", [authenticates], async function(req, res) {
     try {
+        console.log("TODAY NOW")
         let client = await mongoclient.connect(url);
         let db = client.db("booking");
         let dates = new Date();
@@ -329,7 +330,7 @@ app.put("/adminedit/:id", [authenticates], async function(req, res) {
 //tmrwbookings
 app.get("/tmrw", [authenticates], async function(req, res) {
     try {
-        console.log("tomorrow")
+        console.log("TOMORROW NEXT")
         let client = await mongoclient.connect(url);
         let db = client.db("booking");
         let tomorrow = new Date(now)
